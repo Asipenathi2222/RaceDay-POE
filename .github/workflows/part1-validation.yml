@@ -1,0 +1,37 @@
+name: RaceDay Part 1 Validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-part1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required folders
+        run: |
+          test -d docs
+          test -d .github/workflows
+
+      - name: Check required Part 1 documents
+        run: |
+          test -f docs/ERD.png
+          test -f docs/APIEndpointPlan.pdf
+          test -f docs/RaceDay.sql
+          test -f README.md
+
+      - name: Validate repository structure
+        run: |
+          echo "RaceDay Part 1 repository structure is valid."
+          echo "ERD, API Endpoint Plan, SQL script, README and workflow files are present."
+
+      - name: Validation successful
+        run: echo "RaceDay Part 1 CI validation completed successfully."
